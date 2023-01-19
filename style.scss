@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Ubuntu&display=swap');
+//змінні
+//color
+$current-color:  rgb(38,139,233);
+$dark-current-color: rgb(15, 72, 126);
+
+//fonts
+$basic-fonts: 'Ubuntu', sans-serif;
+$header-fonts: 'Shadows Into Light', cursive;
+
+//mixin icon
+@mixin icon($content, $left) {
+  position: relative;
+
+  &::after {
+    content: $content;
+    border: 1px solid #0ebbdb;
+    color: #39a0ee;;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: 10px;
+    padding: 0 3px;
+    border-radius: 5px;
+    position: absolute;
+    left: $left + px;
+    top: -5px;
+    visibility: hidden;
+  }
+
+  &:hover:after {
+    visibility: visible;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: $basic-fonts;
+}
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: aliceblue url("img/bg.jpg") center no-repeat fixed;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.tasks {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  text-align: center;
+  gap: 40px;
+  width: 80vw;
+}
+
+.main_task {
+  padding: 15px;
+  background-color: rgba(218, 239, 218, 0.58);
+  border-radius: 20px;
+}
+
+.main_task__header {
+  font-size: 50px;
+  font-family: $header-fonts;
+  letter-spacing: 3px;
+  color: $current-color;
+  text-shadow: 2px 2px 2px #2072bd;
+  margin-bottom: 20px;
+  
+  @media (max-width: 780px) {
+    font-size: 40px;
+  }
+}
+
+.main_task__item {
+  position: relative;
+  margin-top: 5px;
+  display: flex;
+  align-items: end;
+  transition: all 0.5s ease;
+  touch-action: none;
+}
+
+.icon_v{
+  font-weight: 600;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.icon_save, .icon_edit, .icon_important, .icon_clock {
+  display: inline-block;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.icon_edit, .icon_important, .icon_clock{
+  width: 18px;
+  height: 18px;
+}
+
+.empty_square {
+  width: 18px;
+  height: 18px;
+  background-color: rgba(255, 255, 255, 0.25);
+  position: relative;
+  border: 3px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, rgba(38,139,233,1) 0%, rgba(87,214,235,1) 75%, rgba(79,225,236,1) 100%);
+  cursor: pointer;
+  overflow: hidden;
+  top: -6px;
+
+  &::after {
+    content: '✓';
+    position: absolute;
+    top: -6px;
+    left: 0;
+    font-weight: 600;
+    font-size: 17px;
+    color: #3cd560;
+    visibility: hidden;
+  }
+}
+
+.front_side, .back_side {
+  border-bottom: 3px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, rgba(38,139,233,1) 0%, rgba(87,214,235,1) 75%, rgba(79,225,236,1) 100%);
+  font-size: 20px;
+  color: $dark-current-color;
+}
+
+.front_side {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.front_side__input {
+  width: 100%;
+  margin: 0 10px;
+  outline: none;
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: $dark-current-color;
+}
+
+.icon_save {
+  background-image: url("img/save.png");
+  @include icon('Save', 18);
+}
+
+.icon_edit {
+  background-image: url("img/edit.png");
+  @include icon('Edit', -28);
+}
+
+.back_side {
+  display: none;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.back_side__content {
+  margin: 0 10px;
+  overflow: hidden;
+  display: inline-block;
+  color: #0289a8;
+  position: relative;
+  bottom: -4px;
+  flex-grow: 10;
+}
+
+.icon__wrapper {
+  flex-grow: 0;
+}
+
+.icon_important {
+  background-image: url("img/warning.png");
+  @include icon('Important', -50);
+}
+
+.icon_clock {
+  background-image: url("img/clock.png");
+  @include icon('Postpone', 19);
+}
+
+.btn {
+  border: none;
+  border-radius: 15px;
+  transition: 0.2s linear;
+  background: linear-gradient(90deg, rgba(38, 139, 233, 0.3) 0%, rgba(87, 214, 235, 0.3) 75%, rgba(79, 225, 236, 0.3) 100%);
+  font-size: 15px;
+  text-transform: uppercase;
+  color: $dark-current-color;
+  cursor: pointer;
+  margin-top: 15px;
+  padding: 10px;
+  font-family: $header-fonts;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  &:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px  rgb(38,139,233);
+  }
+}
+
+.main_task__item.save {
+  & > .back_side {
+    display: flex;
+  }
+
+  & > .front_side {
+    display: none;
+  }
+}
+
+.main_task__item.done {
+  & > .empty_square:after {
+    visibility: visible;
+  }
+
+  & > .back_side > .back_side__content {
+    text-decoration: line-through;
+  }
+
+  & > .front_side > .front_side__input {
+    text-decoration: line-through;
+  }
+}
+
+
+//blocks
+
+.blocks {
+  @extend .main_task;
+  display: flex;
+  flex-direction: column;
+}
+
+.important__wrapper, .put_off__wrapper {
+  flex-grow: 2;
+}
+
+
+.date__toggle {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+
+.date__title {
+  @extend .main_task__header;
+  text-shadow: 1px 1px 1px #2072bd;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.icon_calendar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/calendar.png");
+  background-size: contain;
+}
+
+.date__input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.date__input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.date__content {
+  @extend .main_task__header;
+  text-shadow: 1px 1px 1px #2072bd;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.important, .put_off{
+  height: 70%;
+}
+
+.important__title, .put_off__title {
+  @extend .main_task__header;
+  text-shadow: 1px 1px 1px #2072bd;
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.dragging{
+  background: linear-gradient(90deg, rgba(38, 139, 233, 0.2) 0%, rgba(87, 214, 235, 0.2) 75%, rgba(79, 225, 236, 0.2) 100%);
+}

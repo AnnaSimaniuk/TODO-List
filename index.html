@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>To Do List</title>
+</head>
+<body>
+<section class="wrapper">
+    <div class="tasks">
+        <div class="main_task">
+            <h2 class="main_task__header">TO DO LIST</h2>
+            <div class="main_task__items">
+            </div>
+            <button class="btn">Add new task</button>
+        </div>
+        <div class="blocks">
+            <div class="date">
+                <h3 class="date__title">Chose date:</h3>
+                <span class="date__toggle">
+                    <span class="icon_calendar"></span>
+                    <input type="date" class="date__input">
+                </span>
+                <p class="date__content"></p>
+            </div>
+            <div class="important__wrapper">
+                <h3 class="important__title">Important tasks:</h3>
+                <div class="important"></div>
+            </div>
+            <div class="put_off__wrapper">
+                <h3 class="put_off__title">Postponed tasks:</h3>
+                <div class="put_off"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/index.js" type="module"></script>
+</body>
+</html>
